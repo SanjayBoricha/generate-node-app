@@ -1,0 +1,15 @@
+{
+  "name": "node-boilerplate",
+  "version": "1.0.0",
+  "description": "Quick organized project structure for node application",
+  "bin": {
+    "generate-node-boilerplate": "./bin/create-app.js"
+  },
+  "keywords": [
+    "node",
+    "boilerplate",
+    "typescript"
+  ],
+  "author": "Sanjay Boricha",
+  "license": "MIT"
+}
