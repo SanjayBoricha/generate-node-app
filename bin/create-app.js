@@ -41,7 +41,8 @@ async function main() {
 
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
-    execSync("npx rimraf ./package");
+    fs.rmSync(path.join(projectPath, "package.json"))
+    fs.renameSync(path.join(projectPath, "package-app.json"), path.join(projectPath, "package.json"))
 
     fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
 
