@@ -1,4 +1,4 @@
-# gen-node-app
+# generate-node-app
 Quick project structure for node application with typescript
 
-`npx gen-node-app app-name`
+`npx generate-node-app app-name`

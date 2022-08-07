@@ -1,14 +1,14 @@
 {
-  "name": "gen-node-app",
+  "name": "generate-node-app",
   "version": "1.0.3",
   "description": "Quick project structure for node application with typescript",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SanjayBoricha/gen-node-app.git"
+    "url": "https://github.com/SanjayBoricha/generate-node-app.git"
   },
   "author": "Sanjay Boricha",
   "bin": {
-    "gen-node-app": "./bin/create-app.js"
+    "generate-node-app": "./bin/create-app.js"
   },
   "keywords": [
     "node",
