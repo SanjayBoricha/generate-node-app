@@ -1,2 +1,2 @@
-# node-boilerplate
-Quick organized project structure for node application
+# gen-node-app
+Quick project structure for node application with typescript
