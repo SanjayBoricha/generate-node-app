@@ -46,6 +46,7 @@ async function main() {
     execSync("npx rimraf ./.git");
     fs.rmSync(path.join(projectPath, ".github"), { recursive: true });
     fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
+    fs.rmSync(path.join(projectPath, "LICENCE"));
 
     console.log("The installation is done, this is ready to use !");
   } catch (error) {
