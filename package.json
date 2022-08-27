@@ -1,6 +1,6 @@
 {
   "name": "generate-node-app",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Quick project structure for node application with typescript",
   "repository": {
     "type": "git",
