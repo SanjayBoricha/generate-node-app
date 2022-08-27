@@ -32,23 +32,15 @@ try {
 async function main() {
   try {
     console.log("Downloading files...");
-    execSync(`git clone --depth 1 ${git_repo} ${projectPath}`);
+    execSync(`git clone --depth 1 ${git_repo} ${projectPath} && git checkout code`);
 
     process.chdir(projectPath);
 
-    console.log("Installing dependencies...");
-    fs.rmSync(path.join(projectPath, "package.json"))
-    fs.renameSync(path.join(projectPath, "package-app.json"), path.join(projectPath, "package.json"))
-    execSync("npm install");
-    fs.cpSync(path.join(projectPath, ".env.example"), path.join(projectPath, ".env"))
-
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
-    fs.rmSync(path.join(projectPath, ".github"), { recursive: true });
-    fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
-    fs.rmSync(path.join(projectPath, "LICENCE"));
 
-    console.log("The installation is done, this is ready to use !");
+    fs.cpSync(path.join(projectPath, ".env.example"), path.join(projectPath, ".env"))
+    console.log("The installation is complete, and this is now ready for use.");
   } catch (error) {
     console.log(error);
   }
