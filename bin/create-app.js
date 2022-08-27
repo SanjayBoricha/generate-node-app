@@ -40,9 +40,11 @@ async function main() {
     fs.rmSync(path.join(projectPath, "package.json"))
     fs.renameSync(path.join(projectPath, "package-app.json"), path.join(projectPath, "package.json"))
     execSync("npm install");
+    fs.cpSync(path.join(projectPath, ".env.example"), path.join(projectPath, ".env"))
 
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
+    fs.rmSync(path.join(projectPath, ".github"), { recursive: true });
     fs.rmSync(path.join(projectPath, "bin"), { recursive: true });
 
     console.log("The installation is done, this is ready to use !");

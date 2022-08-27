@@ -6,7 +6,7 @@ class Helper {
       status: 200,
       message: message,
       result: result
-    });
+    })
   }
 
   static errorResponse(response: Response, code: number, message: string = 'Something went wrong, please try again.') {
@@ -14,7 +14,7 @@ class Helper {
       status: code,
       message: message,
       result: null
-    });
+    })
   }
 }
 

@@ -5,18 +5,18 @@ import Helper from '../utils/Helper'
 import jwt from 'jsonwebtoken'
 
 class AuthController {
-  static async register(req: Request, response: Response) {
+  static async register(request: Request, response: Response) {
     try {
-      const userExists = await User.exists({ email: req.body.email });
+      const userExists = await User.exists({ email: request.body.email })
 
       if (userExists) {
         return Helper.errorResponse(response, 422, 'Email already exists.')
       }
 
       await User.create({
-        name: req.body.name,
-        email: req.body.email,
-        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync())
+        name: request.body.name,
+        email: request.body.email,
+        password: bcrypt.hashSync(request.body.password, bcrypt.genSaltSync())
       })
 
       return Helper.successResponse(response, 'Registered successfully, please login to continue.')
@@ -25,15 +25,15 @@ class AuthController {
     }
   }
 
-  static async login(req: Request, response: Response) {
+  static async login(request: Request, response: Response) {
     try {
-      const user = await User.findOne({ email: req.body.email }).select('+password');
+      const user = await User.findOne({ email: request.body.email }).select('+password')
 
       if (user === null) {
         return Helper.errorResponse(response, 400, 'User not found.')
       }
 
-      if (!bcrypt.compareSync(req.body.password, user.password || '')) {
+      if (!bcrypt.compareSync(request.body.password, user.password || '')) {
         return Helper.errorResponse(response, 400, 'Wrong password, please try again.')
       }
 
@@ -44,23 +44,16 @@ class AuthController {
   }
 
   static tokenResponse(response: Response, message: string, user: IUser) {
-    const jwtSecret: string = process.env.JWT_SECRET || ''
-    const expiresIn: string = process.env.JWT_EXPIRE_TIME || '3600'
+    delete user.password
 
-    const token = jwt.sign(
-      {
-        email: user.email,
-        userId: user._id
-      },
-      jwtSecret,
-      {
-        expiresIn: expiresIn
-      }
-    );
+    const token = jwt.sign({ user_id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE_TIME })
+    return Helper.successResponse(response, message, { token: token, expiresIn: process.env.JWT_EXPIRE_TIME, user: user })
+  }
 
-    user.password = undefined
+  static async profile(request: Request, response: Response) {
+    const user = (await User.findById(request.user?._id))?.toJSON()
 
-    return Helper.successResponse(response, message, { token: token, expiresIn: expiresIn, user })
+    return Helper.successResponse(response, 'success', user)
   }
 }
 
