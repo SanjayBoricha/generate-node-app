@@ -3,6 +3,7 @@ import User, { IUser } from '../models/User'
 import bcrypt from 'bcrypt'
 import Helper from '../utils/Helper'
 import jwt from 'jsonwebtoken'
+import Mail from '../utils/Mail'
 
 class AuthController {
   static async register(request: Request, response: Response) {
@@ -18,6 +19,12 @@ class AuthController {
         email: request.body.email,
         password: bcrypt.hashSync(request.body.password, bcrypt.genSaltSync())
       })
+
+      await new Mail()
+        .to(request.body.email)
+        .subject('Welcome')
+        .body('<h1>Welcome</h1>')
+        .send()
 
       return Helper.successResponse(response, 'Registered successfully, please login to continue.')
     } catch (error: any) {
