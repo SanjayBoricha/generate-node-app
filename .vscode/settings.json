@@ -4,8 +4,5 @@
   "typescript.format.semicolons": "remove",
   "[typescript]": {
     "files.insertFinalNewline": true
-  },
-  "files.associations": {
-    "*.env*": "env"
   }
 }
