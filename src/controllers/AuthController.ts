@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt'
 import Helper from '../utils/Helper'
 import jwt from 'jsonwebtoken'
 import Mail from '../utils/Mail'
+import { __ } from '../utils/lang'
 
 class AuthController {
   static async register(request: Request, response: Response) {
@@ -11,7 +12,7 @@ class AuthController {
       const userExists = await User.exists({ email: request.body.email })
 
       if (userExists) {
-        return Helper.errorResponse(response, 422, 'Email already exists.')
+        return Helper.errorResponse(response, 422, __('email_already_exists'))
       }
 
       await User.create({
@@ -26,7 +27,7 @@ class AuthController {
         .body('<h1>Welcome</h1>')
         .send()
 
-      return Helper.successResponse(response, 'Registered successfully, please login to continue.')
+      return Helper.successResponse(response, __('registered_successfully'))
     } catch (error: any) {
       return Helper.errorResponse(response, 500)
     }
@@ -37,14 +38,14 @@ class AuthController {
       const user = await User.findOne({ email: request.body.email }).select('+password')
 
       if (user === null) {
-        return Helper.errorResponse(response, 400, 'User not found.')
+        return Helper.errorResponse(response, 400, __('user_not_found'))
       }
 
       if (!bcrypt.compareSync(request.body.password, user.password || '')) {
-        return Helper.errorResponse(response, 400, 'Wrong password, please try again.')
+        return Helper.errorResponse(response, 400, __('wrong_password'))
       }
 
-      return AuthController.tokenResponse(response, 'Successfully logged in.', user)
+      return AuthController.tokenResponse(response, __('successfully_logged_in'), user)
     } catch (error: any) {
       return Helper.errorResponse(response, 500)
     }
