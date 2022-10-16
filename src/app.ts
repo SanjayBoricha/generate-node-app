@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 import RouteServiceProvider from './providers/RouteServiceProvider'
 import mongoose from 'mongoose'
 import morgan from "morgan"
-// import compression from 'compression'
 
 dotenv.config()
 
@@ -16,18 +15,10 @@ app.use(morgan('combined'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// use compression for response
-// app.use(compression())
-
 // mongo connection
 if (process.env.MONGO_URI_STRING) {
   mongoose.connect(process.env.MONGO_URI_STRING)
 }
-
-// root route
-app.get('/', (response: Response) => {
-  return response.send('Express + TypeScript Server')
-})
 
 // register service providers
 new RouteServiceProvider(app).register()

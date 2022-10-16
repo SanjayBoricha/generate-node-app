@@ -1,4 +1,6 @@
+import { Edge } from 'edge.js'
 import { Response } from 'express'
+import { join } from 'path'
 
 class Helper {
   static successResponse(response: Response, message: string, result: any = null) {
@@ -15,6 +17,13 @@ class Helper {
       message: message,
       result: null
     })
+  }
+
+  static view(file: string) {
+    const edge = new Edge({ cache: false })
+    edge.mount(join(__dirname, '../resources/views'))
+
+    return edge.render(file)
   }
 }
 

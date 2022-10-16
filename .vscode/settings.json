@@ -3,8 +3,10 @@
   "editor.formatOnSave": true,
   "typescript.format.semicolons": "remove",
   "[typescript]": {
-    "files.insertFinalNewline": true
+    "files.insertFinalNewline": true,
   },
+  "eslint.enable": false,
+  "files.insertFinalNewline": true,
   "files.associations": {
     "*.env*": "env"
   }
