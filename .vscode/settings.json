@@ -5,5 +5,9 @@
   "[typescript]": {
     "files.insertFinalNewline": true,
   },
-  "eslint.enable": false
+  "eslint.enable": false,
+  "files.insertFinalNewline": true,
+  "files.associations": {
+    "*.env*": "env"
+  }
 }
